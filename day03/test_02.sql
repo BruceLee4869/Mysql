@@ -1,6 +1,4 @@
-DROP TABLE
-IF
-	EXISTS `department`;
+DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
 	`dept_id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '主键',
 	`dept_name` VARCHAR ( 16 ) NOT NULL COMMENT '部门名',

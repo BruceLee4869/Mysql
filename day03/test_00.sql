@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS `ourmoney`;
 CREATE TABLE `ourmoney`(
 `id` INT PRIMARY KEY AUTO_INCREMENT,
 `name` 	VARCHAR(20),
@@ -14,19 +15,23 @@ BEGIN
 	-- 如果转账金额<=0就不转账，并且返回转账成功和失败的提示，成功返回1，失败返回0
   -- 转账的时候还需要考虑账户余额够不够
 	DECLARE `result` INT;
-	IF `moneyya` <= 0 THEN
-	  SET `result` = 0;
-	ELSE 
-		UPDATE `ourmoney` SET `money` = `money` - `moneyya` WHERE `id` = `ye`;
-		UPDATE `ourmoney` SET `money` = `money` + `moneyya` WHERE `id` = `sun`;
-		SET `result` = 1;
+	IF (SELECT `money` FROM `ourmoney` WHERE `id`= `ye`)<=`moneyya` THEN
+		SET `result` = 0;
+	ELSE
+			IF `moneyya` <= 0 THEN
+				SET `result` = 0;
+			ELSE 
+				UPDATE `ourmoney` SET `money` = `money` - `moneyya` WHERE `id` = `ye`;
+				UPDATE `ourmoney` SET `money` = `money` + `moneyya` WHERE `id` = `sun`;
+				SET `result` = 1;
+			END IF;
 	END IF;
 	SELECT `result` '成功(1) 失败(0)';
 END $
-
 DELIMITER ;
 
 CALL zz(1,2,500.00);
 
+SELECT * FROM `ourmoney`;
 
 
