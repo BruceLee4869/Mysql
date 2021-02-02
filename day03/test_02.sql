@@ -41,10 +41,21 @@ VALUES
 	( 1, '王纪生', 1, 4500 );
 	
 -- 统计各部门的员工工资总额
-SELECT d.dept_name,SUM(IFNULL(e.emp_wage,0)) FROM
+SELECT d.dept_name 部门名,SUM(IFNULL(e.emp_wage,0)) 工资总额 FROM
 `employee` e RIGHT JOIN `department` d
 ON d.dept_id = e.dept_id
 GROUP BY d.dept_id;
+
+-- 5.查询工资最高的员工信息：员工编号，员工姓名，员工工资，部门名
+SELECT 
+	e.emp_id 员工编号,e.emp_name 员工姓名,e.emp_wage 员工工资,d.dept_name 部门名
+FROM
+`employee` e 
+LEFT JOIN
+`department` d
+ON e.dept_id = d.dept_id
+WHERE emp_wage = (SELECT MAX(emp_wage) FROM employee );
 	
 	
 	
+				
