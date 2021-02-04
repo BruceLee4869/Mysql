@@ -1,0 +1,50 @@
+//1，导包    注册驱动（ 可不注册 自带配置文件中已写好  但是建议书写  规避因未书写而产生问题）
+
+/*导包：如果是java项目 直接在项目下创建 lib  将jar包导入
+       若果是JAVAEE项目  在WEB-INF下创建 lib   并倒入jar包 */
+
+//加载驱动
+Class.forname("com.mysql.jdbc.Driver");
+
+/* 2.与数据库建立连接  jdbc-协议名  mysql-连接的数据库类型  localhost-ip地址  3306:固定端口号 */
+Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/数据库名","用户名","密码");
+
+//3.创建数据库操作对象（2）
+Statement statement = Connection.createStatement();
+
+//4.对象调方法   对数据库数据进行CRUD操作
+statement.executeUpdate("DML语句"); 
+ResultSel rs = Statement.executeQuery("DQL语句");
+
+//若为查询则对查询结果进行处理
+while（rs.next()）{
+	System.out.println(拼接字符串);
+} 
+
+//5.关流，释放资源
+rs.close();  -- DML语句无该对象，无需释放
+statement.close();
+connection.close();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//5，关流，释放资源
